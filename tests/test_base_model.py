@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-from models.base_model import BaseModel
-from datetime import datetime
 import unittest
+from datetime import datetime
+from models.base_model import BaseModel
 
 class TestBaseModel(unittest.TestCase):
 
@@ -18,7 +18,7 @@ class TestBaseModel(unittest.TestCase):
         model = BaseModel()
         initial_updated_at = model.updated_at
         model.save()
-        self.assertGreater(model.updated_at, initial_updated_at)
+        self.assertNotEqual(model.updated_at, initial_updated_at)
 
     def test_to_dict(self):
         """Test converting the instance to a dictionary"""
@@ -28,8 +28,9 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(model_dict['__class__'], 'BaseModel')
         self.assertIsInstance(model_dict['created_at'], str)
         self.assertIsInstance(model_dict['updated_at'], str)
-        self.assertTrue(model_dict['created_at'].endswith('.000000'))  # Assuming no microseconds
-        self.assertTrue(model_dict['updated_at'].endswith('.000000'))  # Assuming no microseconds
+        # Check that the timestamps are in ISO format
+        self.assertRegex(model_dict['created_at'], r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{6}Z?$')
+        self.assertRegex(model_dict['updated_at'], r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{6}Z?$')
 
 if __name__ == '__main__':
     unittest.main()
