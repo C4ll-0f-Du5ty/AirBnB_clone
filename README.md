@@ -45,5 +45,6 @@ echo "show User" | ./console.py
 Or by redirecting a file containing commands:
 
 cat commands.txt | ./console.py
-Authors
-This project was developed by Rowyda Shawky and Allem Abdelaziz.
+
+## Authors
+This project was developed by Allem Abdelaziz.
