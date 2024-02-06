@@ -1,21 +1,21 @@
-AirBnB Clone - The Console
-Description
+# AirBnB Clone - The Console
+# Description
 AirBnB Clone is a console-based application that simulates the core functionalities of AirBnB. It allows users to create, retrieve, update, and delete objects representing various entities such as Users, States, Cities, and Places. The project is built using Python and follows the principles of Object-Oriented Programming (OOP).
 
-Command Interpreter
+# Command Interpreter
 The command interpreter is the heart of the AirBnB Clone application. It interprets and executes commands entered by the user, managing the lifecycle of AirBnB objects.
 
-Starting the Application
+# Starting the Application
 To start the application, navigate to the project directory and run the following command:
 
 ./console.py
-Using the Application
+# Using the Application
 Once the application is running, you can interact with it using the command prompt (hbnb). Enter commands to manage your AirBnB objects. For example:
 
 (hbnb) create User
 (hbnb) show User
 (hbnb) destroy User
-Examples
+# Examples
 Here are some examples of how to use the command interpreter:
 
 # Start the console
