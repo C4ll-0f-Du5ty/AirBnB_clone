@@ -68,7 +68,9 @@ class TestModels(unittest.TestCase):
         self.assertEqual(hasattr(review, 'user_id'), True)
         self.assertEqual(hasattr(review, 'text'), True)
 
-    # Additional tests for to_dict(), save(), and other methods can be added here
+    # Additional tests for to_dict(), save(),
+    # and other methods can be added here
+
 
 if __name__ == '__main__':
     unittest.main()
