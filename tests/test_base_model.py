@@ -4,6 +4,7 @@ import unittest
 from datetime import datetime
 from models.base_model import BaseModel
 
+
 class TestBaseModel(unittest.TestCase):
     """Testing my Modules"""
 
@@ -31,8 +32,11 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(model_dict['created_at'], str)
         self.assertIsInstance(model_dict['updated_at'], str)
         # Check that the timestamps are in ISO format
-        self.assertRegex(model_dict['created_at'], r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{6}Z?$')
-        self.assertRegex(model_dict['updated_at'], r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{6}Z?$')
+        self.assertRegex(model_dict['created_at'],
+                         r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{6}Z?$')
+        self.assertRegex(model_dict['updated_at'],
+                         r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{6}Z?$')
+
 
 if __name__ == '__main__':
     unittest.main()
