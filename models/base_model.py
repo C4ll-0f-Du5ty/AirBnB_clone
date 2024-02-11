@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """My Base (Core) Module"""
-import models
 from uuid import uuid4
 from datetime import datetime
 
@@ -19,6 +18,7 @@ class BaseModel:
                 elif key != '__class__':
                     setattr(self, key, value)
         else:
+            import models
             models.storage.new(self)
 
     def __str__(self):
@@ -28,6 +28,7 @@ class BaseModel:
     def save(self):
         """Saving My Modification dates"""
         self.updated_at = datetime.now()
+        import models
         models.storage.save()
 
     def to_dict(self):
