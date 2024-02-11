@@ -18,8 +18,8 @@ class BaseModel:
                 elif key != '__class__':
                     setattr(self, key, value)
         else:
-            import models
-            models.storage.new(self)
+            from models import storage
+            storage.new(self)
 
     def __str__(self):
         """Returning the String Representation"""
@@ -28,8 +28,8 @@ class BaseModel:
     def save(self):
         """Saving My Modification dates"""
         self.updated_at = datetime.now()
-        import models
-        models.storage.save()
+        from models import storage
+        storage.save()
 
     def to_dict(self):
         """Creating A Dict. out of my Data to be Stored"""
