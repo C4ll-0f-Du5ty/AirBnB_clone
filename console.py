@@ -5,11 +5,30 @@ import sys
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 import models
+import os
+
+
+def convert_value(value):
+    """Converts a string to the appropriate type based on its content."""
+    # Try converting to integer
+    try:
+        return int(value)
+    except ValueError:
+        pass
+
+    # Try converting to float
+    try:
+        return float(value)
+    except ValueError:
+        pass
+
+    # Default to string
+    return str(value)
 
 
 class HBNBCommand(cmd.Cmd):
     """Using the CMD module i do make this CLI"""
-    prompt = "(hbnb)"
+    prompt = "(hbnb) "
 
     def do_EOF(self, args):
         """Using CTRL + D to exit"""
@@ -115,11 +134,58 @@ class HBNBCommand(cmd.Cmd):
                 objects = models.storage.all()
                 for value in objects.values():
                     if value.__class__ == name:
-                        print(value)
+                        print(str(value))
         else:
             objects = models.storage.all()
             for key in objects.keys():
-                print(objects[key])
+                print(str(objects[key]))
+
+    def do_update(self, args):
+        """Updates an instance based on the class name and id"""
+        found = False
+
+        if not args:
+            print("** class name missing **")
+            return
+
+        parts = args.split()
+        part1 = parts[0]
+        name = globals().get(part1)
+
+        if not name:
+            print("** class doesn't exist **")
+            return
+
+        if len(parts) < 2:
+            print("** instance id missing **")
+            return
+
+        part2 = parts[1]
+
+        objects = models.storage.all()
+        instance = None
+        for value in objects.values():
+            if value.id == part2:
+                instance = value
+                break
+        if not instance:
+            print("** no instance found **")
+            return
+
+        part3 = parts[2]
+        part4 = parts[3]
+        # Update the attribute
+        try:
+            full_attr_value = ' '.join(parts[3:])
+            part4 = convert_value(full_attr_value.strip('"'))
+            setattr(instance, part3, part4)
+            models.storage.save()
+        except AttributeError:
+            print("** attribute name missing **")
+            return
+        except Exception as e:
+            print("** value missing **")
+            return
 
     def emptyline(self):
         """Neglecting the Empty Lines"""

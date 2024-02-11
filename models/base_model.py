@@ -27,8 +27,8 @@ class BaseModel:
 
     def save(self):
         """Saving My Modification dates"""
-        models.storage.save()
         self.updated_at = datetime.now()
+        models.storage.save()
 
     def to_dict(self):
         """Creating A Dict. out of my Data to be Stored"""
