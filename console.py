@@ -6,7 +6,7 @@ from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 import models
 import os
-
+from models.user import User
 
 def convert_value(value):
     """Converts a string to the appropriate type based on its content."""

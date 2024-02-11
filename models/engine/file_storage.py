@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """My File Storage System"""
 import json
+from models.base_model import BaseModel
 
 
 class FileStorage:
@@ -34,8 +35,6 @@ class FileStorage:
                 for o in objdict.values():
                     cls_name = o["__class__"]
                     del o["__class__"]
-                    # Safely instantiate the class
-                    # using globals() and hasattr()
                     cls = globals().get(cls_name)
                     if cls and hasattr(cls, '__init__'):
                         self.new(cls(**o))
