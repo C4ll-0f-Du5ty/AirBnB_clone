@@ -2,7 +2,7 @@
 """My Executable Console File"""
 import cmd
 from models.base_model import BaseModel
-import models
+from models import storage
 from models.user import User
 from models.state import State
 from models.city import City
@@ -53,9 +53,9 @@ class HBNBCommand(cmd.Cmd):
             return
         else:
             obj = name()
-            models.storage.new(obj)
+            storage.new(obj)
             print(obj.id)
-            models.storage.save()
+            storage.save()
             return
 
     def do_show(self, args):
@@ -81,7 +81,7 @@ class HBNBCommand(cmd.Cmd):
 
         part2 = parts[1]
 
-        objects = models.storage.all()
+        objects = storage.all()
         for key, value in objects.items():
             if value.id == part2:
                 print(str(value))
@@ -113,12 +113,12 @@ class HBNBCommand(cmd.Cmd):
 
         part2 = parts[1]
 
-        objects = models.storage.all()
+        objects = storage.all()
         for key, value in objects.items():
             if value.id == part2:
                 del (objects[key])
                 found = True
-                models.storage.save()
+                storage.save()
                 break
         if not found:
             print("** no instance found **")
@@ -134,12 +134,12 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
                 return
             else:
-                objects = models.storage.all()
+                objects = storage.all()
                 for value in objects.values():
                     if value.__class__ == name:
                         print(str(value))
         else:
-            objects = models.storage.all()
+            objects = storage.all()
             for key in objects.keys():
                 print(str(objects[key]))
 
@@ -165,7 +165,7 @@ class HBNBCommand(cmd.Cmd):
 
         part2 = parts[1]
 
-        objects = models.storage.all()
+        objects = storage.all()
         instance = None
         for value in objects.values():
             if value.id == part2:
@@ -182,7 +182,7 @@ class HBNBCommand(cmd.Cmd):
             full_attr_value = ' '.join(parts[3:])
             part4 = convert_value(full_attr_value.strip('"'))
             setattr(instance, part3, part4)
-            models.storage.save()
+            storage.save()
         except AttributeError:
             print("** attribute name missing **")
             return

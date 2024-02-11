@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """My Base (Core) Module"""
+import models
 from uuid import uuid4
 from datetime import datetime
-import models
 
 
 class BaseModel:
