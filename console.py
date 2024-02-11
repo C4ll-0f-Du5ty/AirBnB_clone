@@ -10,6 +10,7 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 
+
 def convert_value(value):
     """Converts a string to the appropriate type based on its content."""
     # Try converting to integer
