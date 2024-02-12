@@ -7,17 +7,17 @@ from datetime import datetime
 class BaseModel:
     """The Class At Which i do the operations on my Dict."""
     def __init__(self, *args, **kwargs):
+        self.id = str(uuid4())
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()
 
-        if kwargs:
+        if len(kwargs) > 0:
             for key, value in kwargs.items():
                 if key == 'created_at' or key == 'updated_at':
                     setattr(self, key, datetime.fromisoformat(value))
                 elif key != '__class__':
                     setattr(self, key, value)
         else:
-            self.id = str(uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = datetime.now()
             from models import storage
             storage.new(self)
 
