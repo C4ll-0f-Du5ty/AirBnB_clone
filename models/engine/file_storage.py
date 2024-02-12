@@ -53,10 +53,6 @@ class FileStorage:
                             if cls_name and cls_name in classes:
                                 del Value["__class__"]
                                 cls = classes[cls_name]
-                                # if "created_at" in Value:
-                                #     Value["created_at"] = datetime.fromisoformat(Value["created_at"])
-                                # if "updated_at" in Value:
-                                #     Value["updated_at"] = datetime.fromisoformat(Value["updated_at"])
                                 self.new(cls(**Value))
         except FileNotFoundError:
             pass
