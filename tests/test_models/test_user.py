@@ -19,6 +19,29 @@ class TestUser(unittest.TestCase):
         """Clean up after the test case"""
         self.storage.save()
 
+    def test_user_initialization(self):
+        """Test that a User object is initialized with the correct attributes."""
+        user = User(email="test@example.com", password="password123", first_name="John", last_name="Doe")
+        
+        self.assertEqual(user.email, "test@example.com")
+        self.assertEqual(user.password, "password123")
+        self.assertEqual(user.first_name, "John")
+        self.assertEqual(user.last_name, "Doe")
+
+    def test_user_attributes_are_private(self):
+        """Test that the User object's attributes are private."""
+        user = User(email="test@example.com", password="password123", first_name="John", last_name="Doe")
+        
+        # Attempt to access the attributes directly
+        with self.assertRaises(AttributeError):
+            user._User__dict__['email']
+        with self.assertRaises(AttributeError):
+            user._User__dict__['password']
+        with self.assertRaises(AttributeError):
+            user._User__dict__['first_name']
+        with self.assertRaises(AttributeError):
+            user._User__dict__['last_name']
+
     def test_instantiate_user(self):
         """Test instantiating a User"""
         user = User()
