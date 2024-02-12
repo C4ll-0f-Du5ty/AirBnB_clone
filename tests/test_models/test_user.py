@@ -19,6 +19,22 @@ class TestUser(unittest.TestCase):
         """Clean up after the test case"""
         self.storage.save()
 
+    def test_default_attribute_values(self):
+        """Test that the User class attributes have the correct default values."""
+        user = User()
+        self.assertEqual(user.email, "")
+        self.assertEqual(user.password, "")
+        self.assertEqual(user.first_name, "")
+        self.assertEqual(user.last_name, "")
+
+    def test_attribute_types(self):
+        """Test that the User class attributes are of the correct types."""
+        user = User()
+        self.assertIsInstance(user.email, str)
+        self.assertIsInstance(user.password, str)
+        self.assertIsInstance(user.first_name, str)
+        self.assertIsInstance(user.last_name, str)
+
     def test_user_initialization(self):
         """Test that a User object is initialized with the correct attributes."""
         user = User(email="test@example.com", password="password123", first_name="John", last_name="Doe")
