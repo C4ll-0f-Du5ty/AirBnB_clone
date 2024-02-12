@@ -175,6 +175,14 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
             return
 
+        if len(parts) < 3:
+            print("** attribute name missing **")
+            return
+
+        if len(parts) < 4:
+            print("** value missing **")
+            return
+
         part3 = parts[2]
         part4 = parts[3]
         # Update the attribute
