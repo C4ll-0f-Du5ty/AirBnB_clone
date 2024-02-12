@@ -7,8 +7,9 @@ from models.base_model import BaseModel
 
 
 class TestBaseModelSaveMethod(unittest.TestCase):
+    """Testing my Save Method"""
     @patch('models.storage')
-    def test_save_updates_updated_at(self, mock_storage):
+    def test_save(self, mock_storage):
         # Create an instance of BaseModel
         bm = BaseModel()
 
