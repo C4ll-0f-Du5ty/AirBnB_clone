@@ -33,10 +33,9 @@ class BaseModel:
 
     def to_dict(self):
         """Creating A Dict. out of my Data to be Stored"""
-        dictC = vars(self)
-        if isinstance(self.created_at, datetime):
-            dictC['created_at'] = self.created_at.isoformat()
-        if isinstance(self.updated_at, datetime):
-            dictC['updated_at'] = self.updated_at.isoformat()
+        dictC = {}
+        dictC.update(self.__dict__)
+        dictC['created_at'] = self.created_at.isoformat()
+        dictC['updated_at'] = self.updated_at.isoformat()
         dictC['__class__'] = self.__class__.__name__
         return dictC
