@@ -44,15 +44,35 @@ class FileStorage:
                     'Review': Review
                 }
 
+        # try:
+        #     if os.path.exists(FileStorage.__file_path):
+        #             with open(FileStorage.__file_path, "r") as f:
+        #                 objdict = json.load(f)
+        #                 for key, Value in objdict.items():
+        #                     cls_name = Value.get("__class__")
+        #                     if cls_name and cls_name in classes:
+        #                         del Value["__class__"]
+        #                         cls = classes[cls_name]
+        #                         self.new(cls(**Value))
+        # except FileNotFoundError:
+        #     pass
+        
         try:
             if os.path.exists(FileStorage.__file_path):
-                    with open(FileStorage.__file_path, "r") as f:
-                        objdict = json.load(f)
-                        for key, Value in objdict.items():
-                            cls_name = Value.get("__class__")
-                            if cls_name and cls_name in classes:
-                                del Value["__class__"]
-                                cls = classes[cls_name]
-                                self.new(cls(**Value))
+                with open(FileStorage.__file_path, "r") as f:
+                    objdict = json.load(f)
+                    for Value in objdict.values():
+                        cls_name = Value.get("__class__")
+                        if cls_name and cls_name in classes:
+                            del Value["__class__"]
+                            cls = classes[cls_name]
+                            if "created_at" in Value and isinstance(Value["created_at"], str):
+                                Value["created_at"] = datetime.fromisoformat(Value["created_at"])
+                            if "updated_at" in Value and isinstance(Value["updated_at"], str):
+                                Value["updated_at"] = datetime.fromisoformat(Value["updated_at"])
+                            # Construct the key in the same way as in the new method
+                            Nstring = f'{cls.__name__}.{Value["id"]}'
+                            # Use the constructed key to add the object to the __objects dictionary
+                            FileStorage.__objects[Nstring] = cls(**Value)
         except FileNotFoundError:
             pass

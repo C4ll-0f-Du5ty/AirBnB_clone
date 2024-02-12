@@ -12,8 +12,15 @@ class BaseModel:
         self.updated_at = datetime.now()
 
         if len(kwargs) > 0:
+            # for key, value in kwargs.items():
+            #     if key == 'created_at' or key == 'updated_at':
+            #         setattr(self, key, datetime.fromisoformat(value))
+            #     elif key != '__class__':
+            #         setattr(self, key, value)
             for key, value in kwargs.items():
-                if key == 'created_at' or key == 'updated_at':
+                if key == 'created_at' and isinstance(value, str):
+                    setattr(self, key, datetime.fromisoformat(value))
+                elif key == 'updated_at' and isinstance(value, str):
                     setattr(self, key, datetime.fromisoformat(value))
                 elif key != '__class__':
                     setattr(self, key, value)
