@@ -64,6 +64,12 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsNotNone(d)
         self.assertIsInstance(d, str)
 
+    def test_id(self):
+        """Testing my ID generation Process"""
+        bm = BaseModel()
+        self.assertIsNotNone(bm.id)
+        self.assertIsInstance(bm.id, str)
+
 
 if __name__ == '__main__':
     unittest.main()
