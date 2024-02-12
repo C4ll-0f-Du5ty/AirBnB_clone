@@ -70,6 +70,38 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsNotNone(bm.id)
         self.assertIsInstance(bm.id, str)
 
+    @patch('models.storage')
+    def test_save_multiple_instances(self, mock_storage):
+        """Test that save updates updated_at for each instance independently"""
+        bm1 = BaseModel()
+        bm2 = BaseModel()
+        original_updated_at_bm1 = bm1.updated_at
+        original_updated_at_bm2 = bm2.updated_at
+
+        bm1.save()
+        self.assertNotEqual(bm1.updated_at, original_updated_at_bm1)
+        self.assertIsInstance(bm1.updated_at, datetime)
+
+        bm2.save()
+        self.assertNotEqual(bm2.updated_at, original_updated_at_bm2)
+        self.assertIsInstance(bm2.updated_at, datetime)
+
+        # Check that storage.save() was called twice
+        mock_storage.save.assert_called()
+        self.assertEqual(mock_storage.save.call_count,  2)
+
+    def test_to_dict_with_custom_attributes(self):
+        """Test converting the instance to a dictionary with custom attributes"""
+        model = BaseModel()
+        model.custom_attribute = "Custom Value"
+        model_dict = model.to_dict()
+        self.assertIsInstance(model_dict, dict)
+        self.assertEqual(model_dict['__class__'], 'BaseModel')
+        self.assertIsInstance(model_dict['created_at'], str)
+        self.assertIsInstance(model_dict['updated_at'], str)
+        self.assertEqual(model_dict['custom_attribute'], "Custom Value")
+
+
 
 if __name__ == '__main__':
     unittest.main()
