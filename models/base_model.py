@@ -9,12 +9,11 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
 
         if kwargs:
-            for key, value in kwargs.items():
-                if key == 'created_at' or key == 'updated_at':
-                    setattr(self, key, datetime.fromisoformat(value))
-                elif key != '__class__':
-                    setattr(self, key, value)
-                del kwargs['__class__']
+            kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'],
+                                                     '%Y-%m-%dT%H:%M:%S.%f')
+            kwargs['created_at'] = datetime.strptime(kwargs['created_at'],
+                                                     '%Y-%m-%dT%H:%M:%S.%f')
+            del kwargs['__class__']
             self.__dict__.update(kwargs)
         else:
             self.id = str(uuid4())
