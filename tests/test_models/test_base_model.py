@@ -56,7 +56,7 @@ class TestBaseModel(unittest.TestCase):
         # Check that storage.save() was called once
         mock_storage.save.assert_called_once()
 
-    def test__str(self):
+    def test_str(self):
         """Testing my __str__ method"""
         bm = BaseModel()
         d = {}
