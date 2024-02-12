@@ -43,20 +43,6 @@ class FileStorage:
                     'State': State, 'City': City, 'Amenity': Amenity,
                     'Review': Review
                 }
-
-        # try:
-        #     if os.path.exists(FileStorage.__file_path):
-        #             with open(FileStorage.__file_path, "r") as f:
-        #                 objdict = json.load(f)
-        #                 for key, Value in objdict.items():
-        #                     cls_name = Value.get("__class__")
-        #                     if cls_name and cls_name in classes:
-        #                         del Value["__class__"]
-        #                         cls = classes[cls_name]
-        #                         self.new(cls(**Value))
-        # except FileNotFoundError:
-        #     pass
-        
         try:
             if os.path.exists(FileStorage.__file_path):
                 with open(FileStorage.__file_path, "r") as f:
