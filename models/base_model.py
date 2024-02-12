@@ -14,6 +14,7 @@ class BaseModel:
                     setattr(self, key, datetime.fromisoformat(value))
                 elif key != '__class__':
                     setattr(self, key, value)
+                del kwargs['__class__']
             self.__dict__.update(kwargs)
         else:
             self.id = str(uuid4())
